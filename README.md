@@ -1,95 +1,87 @@
-Overview
+# Folder Exporter with Progress UI — README
 
-This Python program scans a selected folder (Dropbox, OneDrive, or local) and exports all subfolders into a structured spreadsheet (Excel .xlsx or .csv). Each folder is listed on its own row, with parent folders repeated across columns (Level1, Level2, …).
+## Overview
 
-It works with online-only synced folders (Dropbox/OneDrive Files On-Demand), since it only reads folder names and never downloads file contents.
+This Python program scans a selected folder (Dropbox, OneDrive, or local) and exports all subfolders into a structured spreadsheet (Excel `.xlsx` or `.csv`). Each folder is listed on its own row, with parent folders repeated across columns (`Level1`, `Level2`, …).
 
-Key Features
+It works with online‑only synced folders (Dropbox/OneDrive Files On‑Demand), since it only reads folder names and never downloads file contents.
 
-✅ GUI folder picker
+## Key Features
 
-✅ Save location prompt before scanning
+* GUI folder picker
+* Save location prompt before scanning
+* Progress window with folder count and current path
+* Cancel button (partial results still saved)
+* Windows long‑path (`\\?\`) support
+* Excel `.xlsx` output (auto‑installs `openpyxl`) or CSV fallback
+* Skipped/inaccessible folders logged to `*.scan_log.txt`
+* Compatible with online‑only synced folders
 
-✅ Progress window with folder count and current path
+## Installation
 
-✅ Cancel button (partial results still saved)
+### Requirements
 
-✅ Windows long-path (\\?\) support
+* Python 3.8+
+* `tkinter` (bundled with Python on Windows/macOS)
+* `openpyxl` (auto‑installed if missing, for Excel support)
 
-✅ Excel .xlsx output (auto-installs openpyxl) or CSV fallback
+### Download the script file
 
-✅ Skipped/inaccessible folders logged to *.scan_log.txt
-
-✅ Compatible with online-only synced folders
-
-Installation
-
-Requirements
-
-Python 3.8+
-
-tkinter (bundled with Python on Windows/macOS)
-
-openpyxl (auto-installed if missing, for Excel support)
-
-Download the script file:
-
+```
 export_folders_progress_ui_winfix.py
+```
 
+### (Optional) Manually install `openpyxl`
 
-(Optional) Manually install openpyxl:
-
+```bash
 pip install openpyxl
+```
 
-Usage
+## Usage
 
 Run the script:
 
+```bash
 python export_folders_progress_ui_winfix.py
+```
 
+Then:
 
-Choose the folder to scan (Dropbox, OneDrive, or local).
+1. Choose the folder to scan (Dropbox, OneDrive, or local).
+2. Select where to save the output file (`.xlsx` or `.csv`).
+3. On Windows, confirm whether to enable long‑path prefix support (`\\?\`).
+4. Monitor the progress window:
 
-Select where to save the output file (.xlsx or .csv).
+   * Shows folders found
+   * Displays current scanning path
+   * Cancel button stops early (partial results saved)
 
-On Windows, confirm whether to enable long-path prefix support (\\?\).
+## Output
 
-Monitor the progress window:
+### Spreadsheet
 
-Shows folders found
+* Each row = one folder
+* Columns = folder depth (`Level1`, `Level2`, …)
 
-Displays current scanning path
+### Log file
 
-Cancel button stops early (partial results saved)
+* Named `yourfile.scan_log.txt`
+* Lists skipped folders with reasons (for example, moved during scan, permission errors)
 
-Output
+## Example
 
-Spreadsheet:
-
-Each row = one folder
-
-Columns = folder depth (Level1, Level2, …)
-
-Log file:
-
-Named yourfile.scan_log.txt
-
-Lists skipped folders with reasons (e.g., moved during scan, permission errors).
-
-Example
+```
 Level1   | Level2     | Level3
 ---------|------------|--------
 Dropbox  | Projects   |
 Dropbox  | Projects   | Alpha
 Dropbox  | Projects   | Alpha | Docs
 Dropbox  | Projects   | Beta
+```
 
-Notes
+## Notes
 
-Works with Dropbox and OneDrive online-only synced folders.
-
-Script never downloads files; it only traverses folder entries exposed by the sync client.
-
-Online-only folders that the sync client does not yet expose may still be skipped.
-
-For very deep folder trees, enable long-path support on Windows.
+* Works with Dropbox and OneDrive online‑only synced folders.
+* Script never downloads files; it only traverses folder entries exposed by the sync client.
+* Online‑only folders that the sync client does not yet expose may still be skipped.
+* For very deep folder trees, enable long‑path support on Windows.
